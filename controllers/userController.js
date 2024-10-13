@@ -2,6 +2,8 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
+
+// SignUp Controller
 const RegisterUser = async (req, res) => {
   const { username, email, password } = req.body;
   console.log(req.body);
@@ -44,24 +46,26 @@ const RegisterUser = async (req, res) => {
   }
 };
 
+
+//  Login Controller
+
 const LoginUser = async (req, res) => {
   const { email, password } = req.body;
   console.log(req.body)
 
   if (!email || !password) {
-    res.status(400).json({ message: "All fields required" });
+    res.status(401).json({ message: "All fields required" });
     return;
   }
 
   const user = await User.findOne({ email });
-  console.log(user)
   if (!user) {
-    res.status(400).json({ message: "Invalid username or password" });
+    res.status(401).json({ message: "Invalid username or password" });
     return;
   }
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    res.status(400).json({ message: "Invalid username or password" });
+    res.status(401).json({ message: "Invalid username or password" });
     return;
   }
   const token = jwt.sign({ id: user._id , username:user.username }, process.env.SECRET_KEY, {

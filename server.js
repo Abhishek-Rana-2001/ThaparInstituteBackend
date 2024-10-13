@@ -5,7 +5,9 @@ const studentRoutes = require("./routes/studentRoutes")
 const authRoutes = require("./routes/authRoutes")
 const connectDB = require("./config/db");
 const errorHandler = require("./middlewares/errorMiddleware");
+const cors = require("cors")
 
+app.use(cors())
 connectDB()
 app.use(express.json())
 app.use("/" , studentRoutes)
