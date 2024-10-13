@@ -2,9 +2,9 @@
   "name": "thaparinstitutebackend",
   "version": "1.0.0",
   "description": "Backend for Thapar Institute Website",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "server": "nodemon --env-file=.env ./api/index.js",
+    "server": "nodemon --env-file=.env server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
