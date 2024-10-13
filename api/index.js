@@ -1,10 +1,10 @@
 const express = require("express");
 const app  = express()
 const port  = process.env.PORT 
-const studentRoutes = require("./routes/studentRoutes")
-const authRoutes = require("./routes/authRoutes")
-const connectDB = require("./config/db");
-const errorHandler = require("./middlewares/errorMiddleware");
+const studentRoutes = require("../routes/studentRoutes")
+const authRoutes = require("../routes/authRoutes")
+const connectDB = require("../config/db");
+const errorHandler = require("../middlewares/errorMiddleware");
 const cors = require("cors")
 
 app.use(cors({
