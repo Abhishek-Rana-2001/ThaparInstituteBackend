@@ -1,10 +1,18 @@
 const express = require("express");
 const app  = express()
+const port  = process.env.PORT 
+const studentRoutes = require("./routes/studentRoutes")
+const authRoutes = require("./routes/authRoutes")
+const connectDB = require("./config/db");
+const errorHandler = require("./middlewares/errorMiddleware");
 
-app.get("/" , (req, res)=>{
-    res.send("Hello World")
-})
+connectDB()
+app.use(express.json())
+app.use("/" , studentRoutes)
+app.use("/auth",authRoutes )
 
-app.listen(8000, ()=>{
-    console.log("Server Started on port 8000")
+app.use(errorHandler)
+
+app.listen(port, ()=>{
+    console.log(`Server started at port :- ${port}`)
 })
