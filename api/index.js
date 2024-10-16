@@ -1,27 +1,32 @@
 const express = require("express");
-const app  = express()
-const port  = process.env.PORT 
-const studentRoutes = require("../routes/studentRoutes")
-const authRoutes = require("../routes/authRoutes")
-const courseRoutes = require("../routes/courseRoutes")
+const app = express();
+const port = process.env.PORT;
+const studentRoutes = require("../routes/studentRoutes");
+const authRoutes = require("../routes/authRoutes");
+const courseRoutes = require("../routes/courseRoutes");
 const connectDB = require("../config/db");
 const errorHandler = require("../middlewares/errorMiddleware");
-const cors = require("cors")
+const cors = require("cors");
 
-app.use(cors({
-    origin : process.env.NODE_ENV !== "production" ? "*" : process.env.CORS_ORIGIN,
-    methods : ["GET","POST","PUT","DELETE"],
-}))
-connectDB()
-app.use(express.json())
-app.use("/" , studentRoutes)
-app.use("/auth",authRoutes )
-app.use("/course",courseRoutes)
+app.use(
+  cors({
+    origin: "*",
+    methods: "*",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
 
-app.use(errorHandler)
+connectDB();
+app.use(express.json());
+app.use("/", studentRoutes);
+app.use("/auth", authRoutes);
+app.use("/course", courseRoutes);
 
-app.listen(port, ()=>{
-    console.log(`Server started at port :- ${port}`)
-})
+app.use(errorHandler);
 
-module.exports = app
+app.listen(port, () => {
+  console.log(`Server started at port :- ${port}`);
+});
+
+module.exports = app;
