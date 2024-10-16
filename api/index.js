@@ -9,7 +9,7 @@ const errorHandler = require("../middlewares/errorMiddleware");
 const cors = require("cors")
 
 app.use(cors({
-    origin : "*",
+    origin : process.env.NODE_ENV !== "production" ? "*" : process.env.CORS_ORIGIN,
     methods : ["GET","POST","PUT","DELETE"],
 }))
 connectDB()

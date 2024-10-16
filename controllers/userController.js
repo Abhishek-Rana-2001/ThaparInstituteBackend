@@ -2,10 +2,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
-
 // SignUp Controller
 const RegisterUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const { username, email, password, role } = req.body;
   console.log(req.body);
 
   // checking if any required field is empty
@@ -32,6 +31,7 @@ const RegisterUser = async (req, res) => {
       username,
       email,
       password: hashedPassword,
+      role,
     });
 
     if (newUser) {
@@ -46,12 +46,11 @@ const RegisterUser = async (req, res) => {
   }
 };
 
-
 //  Login Controller
 
 const LoginUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body)
+  console.log(req.body);
 
   if (!email || !password) {
     res.status(401).json({ message: "All fields required" });
@@ -68,10 +67,17 @@ const LoginUser = async (req, res) => {
     res.status(401).json({ message: "Invalid username or password" });
     return;
   }
-  const token = jwt.sign({ id: user._id , username:user.username }, process.env.SECRET_KEY, {
-    expiresIn: "1h",
-  });
-  res.status(200).json({ token });
+  const token = jwt.sign(
+    { id: user._id, username: user.username },
+    process.env.SECRET_KEY,
+    {
+      expiresIn: "1h",
+    }
+  );
+
+  res
+    .status(200)
+    .json({ user : {id: user._id, username:user.username, role:user.role}, token });
 };
 
 module.exports = {
