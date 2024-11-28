@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 const dotenv = require("dotenv")
-dotenv.config()
-const port = process.env.PORT;
 const studentRoutes = require("./routes/studentRoutes");
 const authRoutes = require("./routes/authRoutes");
 const courseRoutes = require("./routes/courseRoutes");
@@ -21,11 +19,12 @@ app.use(
   })
 );
 
+dotenv.config()
+const port = process.env.PORT;
 app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 connectDB();
 app.use(express.json());
-app.use("/", async(req,res) => {return res.json("Hello world")})
 app.use("/student", studentRoutes);
 app.use("/auth", authRoutes);
 app.use("/course", courseRoutes);
