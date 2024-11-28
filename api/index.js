@@ -23,6 +23,7 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
 connectDB();
 app.use(express.json());
+app.use("/",async(req,res) => {return res.json("Hello world")})
 app.use("/student", studentRoutes);
 app.use("/auth", authRoutes);
 app.use("/course", courseRoutes);
