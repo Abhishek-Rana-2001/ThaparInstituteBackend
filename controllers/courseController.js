@@ -1,16 +1,18 @@
 const courseModel = require("../models/courseModel");
 
 const addCourse = async(req, res) =>{
-    const {name, description} = req.body
-
-    if(!name || !description){
+    const {name, description, courseId, image} = req.body
+      console.log(req.body)
+    if(!name || !description || !courseId){
         return res.status(400).json({message : "All Fields are required"})
     }
 
     try {
         const newCourse = await courseModel.create({
             name,
-            description
+            description,
+            courseId,
+            image
         })
 
         if(newCourse){
@@ -20,8 +22,7 @@ const addCourse = async(req, res) =>{
         }
     } catch (error) {
         return res.status(500).json({message : "Failed to add course" , error : error.message})
-    }
-            
+    }  
 }
 
 
