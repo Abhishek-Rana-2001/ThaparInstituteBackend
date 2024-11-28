@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const dotenv = require("dotenv")
+dotenv.config()
 const port = process.env.PORT;
 const studentRoutes = require("./routes/studentRoutes");
 const authRoutes = require("./routes/authRoutes");
