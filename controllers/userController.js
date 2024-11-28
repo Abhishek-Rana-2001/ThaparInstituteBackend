@@ -5,7 +5,6 @@ const User = require("../models/userModel");
 // SignUp Controller
 const RegisterUser = async (req, res) => {
   const { username, email, password, role } = req.body;
-  console.log(req.body);
 
   // checking if any required field is empty
   if (!username || !email || !password) {
@@ -50,7 +49,6 @@ const RegisterUser = async (req, res) => {
 
 const LoginUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
 
   if (!email || !password) {
     res.status(401).json({ message: "All fields required" });
