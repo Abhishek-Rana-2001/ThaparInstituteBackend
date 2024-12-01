@@ -21,7 +21,7 @@ app.use(
 
 dotenv.config()
 const port = process.env.PORT;
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 
 connectDB();
 app.use(express.json());
